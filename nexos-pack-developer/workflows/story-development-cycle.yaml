@@ -1,0 +1,44 @@
+workflow:
+  id: story-development-cycle
+  name: Story Development Cycle
+  description: >
+    Primary 4-phase workflow for all development work.
+    Create story, validate, implement, and QA review.
+
+phases:
+  - id: create
+    name: Story Creation
+    agent: sm
+    task: create-next-story.md
+    next: validate
+
+  - id: validate
+    name: Story Validation
+    agent: po
+    task: validate-next-story.md
+    decision:
+      GO: implement
+      NO-GO: create
+    next: implement
+
+  - id: implement
+    name: Implementation
+    agent: dev
+    task: dev-develop-story.md
+    modes: [autopilot, interactive, preflight]
+    next: review
+
+  - id: review
+    name: QA Gate
+    agent: qa
+    task: qa-gate.md
+    decision:
+      PASS: done
+      CONCERNS: done
+      FAIL: implement
+      WAIVED: done
+
+flow: |
+  @sm create -> @po validate -> @dev implement -> @qa review
+                     |                                 |
+                   NO-GO -> @sm                   FAIL -> @dev

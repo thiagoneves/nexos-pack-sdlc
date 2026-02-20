@@ -1,0 +1,26 @@
+workflow:
+  id: {{WORKFLOW_ID}}
+  name: {{WORKFLOW_NAME}}
+  description: >
+    What this workflow accomplishes.
+
+phases:
+  - id: phase-1
+    name: First Phase
+    agent: {{AGENT_ID}}
+    task: task-file.md
+    next: phase-2
+
+  - id: phase-2
+    name: Second Phase
+    agent: {{AGENT_ID}}
+    task: task-file.md
+    decision:
+      OUTCOME_A: phase-3
+      OUTCOME_B: phase-1
+    next: phase-3
+
+  - id: phase-3
+    name: Final Phase
+    agent: {{AGENT_ID}}
+    task: task-file.md

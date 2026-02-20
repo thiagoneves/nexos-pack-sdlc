@@ -1,0 +1,57 @@
+workflow:
+  id: spec-pipeline
+  name: Spec Pipeline
+  description: >
+    Transform informal requirements into executable specifications.
+    Complexity-adaptive: SIMPLE skips phases 2-3.
+
+  config:
+    complexity_classes:
+      SIMPLE: { max_score: 8, phases: [gather, spec, critique] }
+      STANDARD: { min_score: 9, max_score: 15, phases: all }
+      COMPLEX: { min_score: 16, phases: all, revision_cycle: true }
+
+phases:
+  - id: gather
+    name: Requirements Gathering
+    agent: pm
+    task: spec-gather-requirements.md
+    next: assess
+
+  - id: assess
+    name: Complexity Assessment
+    agent: architect
+    task: spec-assess-complexity.md
+    skip_if: "source is simple or user requests skip"
+    decision:
+      SIMPLE: spec
+      STANDARD: research
+      COMPLEX: research
+    next: research
+
+  - id: research
+    name: Dependency Research
+    agent: analyst
+    task: spec-research-dependencies.md
+    skip_if: "complexity class is SIMPLE"
+    next: spec
+
+  - id: spec
+    name: Write Specification
+    agent: pm
+    task: spec-write-spec.md
+    next: critique
+
+  - id: critique
+    name: Spec Critique
+    agent: qa
+    task: spec-critique.md
+    decision:
+      APPROVED: done
+      NEEDS_REVISION: spec
+      BLOCKED: done
+
+flow: |
+  @pm gather -> @architect assess -> @analyst research -> @pm spec -> @qa critique
+                     |                                                    |
+                   SIMPLE -> @pm spec                         NEEDS_REVISION -> @pm spec

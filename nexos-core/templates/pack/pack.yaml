@@ -1,0 +1,16 @@
+pack:
+  name: pack-name
+  version: 0.1.0
+  description: >
+    Description of your pack.
+  author: your-name
+  domain: custom
+  license: MIT
+
+  agents: []
+  tasks: []
+  workflows: []
+  templates: []
+  rules: []
+
+  config: {}

@@ -1,0 +1,50 @@
+workflow:
+  id: qa-loop
+  name: QA Loop
+  description: >
+    Iterative review-fix cycle after initial QA gate.
+    Maximum 5 iterations before escalation.
+
+  config:
+    max_iterations: 5
+    escalation_triggers:
+      - max_iterations_reached
+      - verdict_blocked
+      - fix_failure
+      - manual_escalate
+
+phases:
+  - id: review
+    name: QA Review
+    agent: qa
+    task: qa-review-story.md
+    decision:
+      APPROVE: done
+      REJECT: fix
+      BLOCKED: escalate
+    next: fix
+
+  - id: fix
+    name: Apply Fixes
+    agent: dev
+    task: dev-apply-qa-fixes.md
+    next: review
+
+  - id: escalate
+    name: Escalation
+    agent: master
+    task: orchestrate.md
+    next: done
+
+commands:
+  - "*qa-loop {storyId}": Start loop
+  - "*qa-loop-review": Resume from review
+  - "*qa-loop-fix": Resume from fix
+  - "*stop-qa-loop": Pause, save state
+  - "*resume-qa-loop": Resume from state
+  - "*escalate-qa-loop": Force escalation
+
+flow: |
+  @qa review -> @dev fix -> @qa review (max 5x)
+       |                         |
+     APPROVE -> done        BLOCKED -> @master escalate

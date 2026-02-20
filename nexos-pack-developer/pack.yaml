@@ -1,0 +1,189 @@
+pack:
+  name: software-dev
+  version: 1.0.0
+  description: "Agile software development pack with story-driven workflows, quality gates, and 12 agents."
+  author: thiagoneves
+  domain: software-development
+  license: MIT
+  tags: [agile, scrum, quality-gates, story-driven, sdlc]
+
+  agents:
+    - agents/master.md
+    - agents/analyst.md
+    - agents/architect.md
+    - agents/data-engineer.md
+    - agents/dev.md
+    - agents/devops.md
+    - agents/pm.md
+    - agents/po.md
+    - agents/qa.md
+    - agents/sm.md
+    - agents/ux-designer.md
+    - agents/squad-creator.md
+
+  tasks:
+    # Story Development Cycle (SDC)
+    - tasks/create-next-story.md
+    - tasks/validate-next-story.md
+    - tasks/dev-develop-story.md
+    - tasks/qa-gate.md
+    - tasks/dev-apply-qa-fixes.md
+    - tasks/story-checkpoint.md
+
+    # Spec Pipeline
+    - tasks/spec-gather-requirements.md
+    - tasks/spec-assess-complexity.md
+    - tasks/spec-research-dependencies.md
+    - tasks/spec-write-spec.md
+    - tasks/spec-critique.md
+
+    # Dev tasks
+    - tasks/dev-improve-code-quality.md
+    - tasks/dev-optimize-performance.md
+    - tasks/dev-suggest-refactoring.md
+    - tasks/dev-backlog-debt.md
+    - tasks/create-service.md
+    - tasks/execute-checklist.md
+    - tasks/sync-documentation.md
+    - tasks/gotcha.md
+    - tasks/gotchas.md
+    - tasks/waves.md
+
+    # QA tasks
+    - tasks/qa-review-story.md
+    - tasks/qa-create-fix-request.md
+    - tasks/qa-generate-tests.md
+    - tasks/qa-risk-profile.md
+    - tasks/qa-security-checklist.md
+    - tasks/qa-test-design.md
+    - tasks/qa-trace-requirements.md
+    - tasks/qa-backlog-add-followup.md
+    - tasks/qa-fix-issues.md
+    - tasks/qa-nfr-assess.md
+    - tasks/qa-review-build.md
+    - tasks/qa-review-proposal.md
+    - tasks/qa-run-tests.md
+    - tasks/qa-library-validation.md
+    - tasks/qa-migration-validation.md
+    - tasks/qa-evidence-requirements.md
+    - tasks/qa-false-positive-detection.md
+    - tasks/qa-browser-console-check.md
+    - tasks/create-suite.md
+
+    # Database tasks
+    - tasks/db-schema-audit.md
+    - tasks/setup-database.md
+    - tasks/db-domain-modeling.md
+    - tasks/db-apply-migration.md
+    - tasks/db-dry-run.md
+    - tasks/db-seed.md
+    - tasks/db-snapshot.md
+    - tasks/db-rollback.md
+    - tasks/db-smoke-test.md
+    - tasks/db-rls-audit.md
+    - tasks/db-analyze-hotpaths.md
+    - tasks/db-policy-apply.md
+    - tasks/db-env-check.md
+    - tasks/db-bootstrap.md
+    - tasks/db-verify-order.md
+    - tasks/db-load-csv.md
+    - tasks/db-run-sql.md
+    - tasks/security-audit.md
+
+    # Architect tasks
+    - tasks/architect-analyze-impact.md
+    - tasks/analyze-cross-artifact.md
+    - tasks/analyze-project-structure.md
+    - tasks/validate-tech-preset.md
+    - tasks/document-project.md
+
+    # DevOps tasks
+    - tasks/environment-bootstrap.md
+    - tasks/setup-github.md
+    - tasks/pre-push-quality-gate.md
+    - tasks/release-management.md
+    - tasks/pr-automation.md
+    - tasks/repository-cleanup.md
+    - tasks/version-management.md
+    - tasks/ci-cd-configuration.md
+
+    # PM tasks
+    - tasks/create-doc.md
+    - tasks/shard-doc.md
+    - tasks/create-epic.md
+    - tasks/execute-epic-plan.md
+
+    # PO tasks
+    - tasks/po-manage-backlog.md
+    - tasks/po-close-story.md
+    - tasks/po-stories-index.md
+    - tasks/po-backlog-add.md
+
+    # Orchestration
+    - tasks/orchestrate.md
+    - tasks/orchestrate-status.md
+    - tasks/orchestrate-resume.md
+
+    # Analyst tasks
+    - tasks/extract-patterns.md
+    - tasks/facilitate-brainstorming.md
+    - tasks/create-research-prompt.md
+
+    # UX tasks
+    - tasks/ux-scan-artifact.md
+    - tasks/ux-create-wireframe.md
+    - tasks/ux-user-research.md
+    - tasks/generate-ui-prompt.md
+    - tasks/audit-codebase.md
+    - tasks/extract-tokens.md
+
+  workflows:
+    - workflows/story-development-cycle.yaml
+    - workflows/spec-pipeline.yaml
+    - workflows/brownfield-discovery.yaml
+    - workflows/qa-loop.yaml
+
+  templates:
+    # Core documents
+    - templates/story.md
+    - templates/prd.md
+    - templates/epic.md
+    - templates/architecture.md
+    - templates/spec.md
+    # Spec Pipeline artifacts
+    - templates/requirements.yml
+    - templates/complexity.yml
+    - templates/research.yml
+    - templates/critique.yml
+    # Quality & Validation
+    - templates/gate.yml
+    - templates/validation-result.md
+    - templates/qa-review.md
+    - templates/backlog-item.yml
+    # Brownfield Discovery
+    - templates/db-audit.md
+    - templates/frontend-spec.md
+    - templates/technical-debt.md
+    # Orchestration
+    - templates/status-report.md
+
+  rules:
+    - rules/story-lifecycle.md
+    - rules/workflow-execution.md
+    - rules/agent-authority.md
+    - rules/coderabbit-integration.md
+
+  config:
+    stories:
+      location: docs/stories
+      template: templates/story.md
+    qa:
+      coderabbit: true
+      location: docs/qa
+    git:
+      conventionalCommits: true
+    squads:
+      minimal: [dev, qa]
+      sdc-core: [sm, po, dev, qa]
+      full-stack: [sm, po, dev, qa, architect, devops]
+      complete: [master, analyst, architect, data-engineer, dev, devops, pm, po, qa, sm, ux-designer, squad-creator]
