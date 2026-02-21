@@ -1,5 +1,5 @@
 pack:
-  name: software-dev
+  name: sdlc
   version: 1.0.0
   description: "Agile software development pack with story-driven workflows, quality gates, and 12 agents."
   author: thiagoneves
